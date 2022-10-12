@@ -10,8 +10,8 @@ function App() {
     // const title1 = "What to learn - 1"
     // const title2 = "What to learn - 2"
     const tasks1 = [
-        {id: 1, title: "JS", isDone: false},
-        {id: 2, title: "HTML", isDone: true},
+         {id: 1, title: "JS", isDone: false},
+         {id: 2, title: "HTML", isDone: true},
         {id: 3, title: "Angular", isDone: false},
     ]
 
