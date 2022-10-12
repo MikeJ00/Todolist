@@ -5,7 +5,7 @@ type TodolistPropsType = {
     tasks: Array<ObjectPropsType>
 }
 type ObjectPropsType = {
-    id:
+    id: number
     title: string
     isDone: boolean
 }
@@ -14,6 +14,7 @@ export const Todolist2 = (props: TodolistPropsType) => {
     return (
         <div>
             <div>
+                <h3>{props.title}</h3>
                 <h3>{props.title}</h3>
                 <div>
                     <input/>
