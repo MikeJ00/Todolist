@@ -15,7 +15,6 @@ export const Todolist2 = (props: TodolistPropsType) => {
         <div>
             <div>
                 <h3>{props.title}</h3>
-                <h3>{props.title}</h3>
                 <div>
                     <input/>
                     <button>+</button>
