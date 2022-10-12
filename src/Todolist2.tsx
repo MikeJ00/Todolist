@@ -5,7 +5,7 @@ type TodolistPropsType = {
     tasks: Array<ObjectPropsType>
 }
 type ObjectPropsType = {
-    id: number
+    id:
     title: string
     isDone: boolean
 }
