@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
+import {v1} from "uuid";
 
 
 export type FilterValueType="All"|"Active"|"Completed"|"Delete All"
@@ -14,17 +15,25 @@ function App() {
     //     { id: 4, title: "Angular", isDone: false }
     //     ]
     let [tasks1,setTasks] = useState([
-        { id: 1, title: "HTML&CSS", isDone: true },
-        { id: 2, title: "JS", isDone: true },
-        { id: 3, title: "ReactJS", isDone: false },
-        { id: 4, title: "Angular", isDone: false }
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false },
+        { id: v1(), title: "Angular", isDone: false }
     ])
+    const addTask=(newTitle:string)=>{
+        const newTask={ id: v1(), title: newTitle, isDone: false }
+        // const newTasks=[newTask,...tasks1]
+        // setTasks(newTasks)--вариант кода как добавить к массиву новые массивы
+        setTasks([newTask,...tasks1]) //более короткий вариант и современный
+        //меняем места, чтобы добавлялась строчка сверху или снизу
+    }
     // let [filter, setFilter] = useState<FilterValueType>("All")//чтобы видно было, какой мяч кинули из функции filterTasks
     // //используем useState, после этого глобально видим, что было передано из тодолиста в функцию. setFilter получает значение
     // //и переносится в filter
 
-    const removeTasks=(taskID:number)=>{
+    const removeTasks=(taskID:string)=>{
         setTasks(tasks1.filter((el)=>el.id!==taskID))
+
     }
     //
     // let filterTasksDone=tasks1
@@ -67,6 +76,7 @@ function App() {
             <Todolist title="What to learn"
                       tasks={tasks1}
                       yyyy={removeTasks}
+                      rrrr={addTask}
                 // qqqq={filterTasks}
             />
         </div>
