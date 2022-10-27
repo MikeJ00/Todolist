@@ -17,6 +17,14 @@ type PropsType = {
 
 export function Todolist(props: PropsType ) {//props: PropsType контейнер, передаем все.. в ней лежит функция, которая из App
     const [newTitle, setNewTitle]=useState("")
+    console.log(newTitle)
+
+    const addTaskHandler=()=>{
+        props.rrrr(newTitle)
+        setNewTitle("")
+
+    }//вынесли логику из кнокпи
+
     let [filter, setFilter] = useState<FilterValueType>("All")//чтобы видно было, какой мяч кинули из функции filterTasks
 //используем useState, после этого глобально видим, что было передано из тодолиста в функцию. setFilter получает значение
 //и переносится в filter
@@ -38,8 +46,10 @@ export function Todolist(props: PropsType ) {//props: PropsType контейне
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input onChange={(event)=>setNewTitle(event.currentTarget.value)} />
-            <button onClick={() => props.rrrr(newTitle)}>+</button>
+            <input value={newTitle}  onChange={(event)=>setNewTitle(event.currentTarget.value)} />
+           {/*собака без поводка вэлью и ньютайтл--если убрать, то наша строка так и будет без обновлений*/}
+            <button onClick={addTaskHandler}>+</button>
+            {/*<button onClick={() => props.rrrr(newTitle)}>+</button>*/}
         </div>
         <ul>
             {filterTasksDone.map((el, index) => {
