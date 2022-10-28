@@ -55,8 +55,11 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             props.removeTask(elID)
          } //2 вариант использования, но появляется лишняя отрисовка, потому что в баттоне вызываем ф-ию 2 раза, но зона
     //видимости лучше, в сравнении с 1 вариантом
-    const changeFilterTsarHandler=()=>{
-
+    // const changeFilterAllHandler=()=>{
+    //     props.qqqq("All")
+    // }
+    const changeFilterTsarHandler=(filterValue:FilterValueType)=>{
+        props.qqqq(filterValue)
     }
     return <div>
         <h3>{props.title}</h3>
@@ -89,10 +92,11 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             {/*<li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>*/}
         </ul>
         <div>
-            <button onClick={() => {props.qqqq("All")}}>All</button>
+            <button onClick={()=>changeFilterTsarHandler("All")}>All</button>
+            <button onClick={()=>changeFilterTsarHandler("Active")}>Active</button>
+            <button onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>
             {/*<button onClick={() => filterTasks("All")}>All</button>*/}
-            <button onClick={() => {props.qqqq("Active")}}>Active</button>
-            <button onClick={() => {props.qqqq("Completed")}}>Completed</button>
+            {/*/!*<button onClick={() => {props.qqqq("Completed")}}>Completed</button>*!/старые методы*/}
         </div>
     </div>
 }
