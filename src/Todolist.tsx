@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, KeyboardEvent} from 'react';
 import {FilterValueType} from "./App";
 
 type TaskType = {
@@ -24,7 +24,12 @@ export function Todolist(props: PropsType ) {//props: PropsType контейне
         setNewTitle("")
 
     }//вынесли логику из кнокпи
-
+const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
+        if(event.key==="Enter"){
+            addTaskHandler()
+        }
+    //если нажал ентер отпр сообщение
+}
     let [filter, setFilter] = useState<FilterValueType>("All")//чтобы видно было, какой мяч кинули из функции filterTasks
 //используем useState, после этого глобально видим, что было передано из тодолиста в функцию. setFilter получает значение
 //и переносится в filter
@@ -41,12 +46,13 @@ export function Todolist(props: PropsType ) {//props: PropsType контейне
         //какой мяч кинули, глобально это нигде не видно...из-за этого делаем переменную filterValue - глобальную, благодаря
         //сэту setFilter
         setFilter(filterValue)
-        //засетать filterValue в новый стейт и.....поменять на 26 и 30 строке...
-    }
+        /*засетать filterValue в новый стейт и.....поменять на 26 и 30 строке...*/}
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input value={newTitle}  onChange={(event)=>setNewTitle(event.currentTarget.value)} />
+            <input value={newTitle}
+                   onKeyDown={onKeyPressHandler}  onChange={(event)=>
+                setNewTitle(event.currentTarget.value)} />
            {/*собака без поводка вэлью и ньютайтл--если убрать, то наша строка так и будет без обновлений*/}
             <button onClick={addTaskHandler}>+</button>
             {/*<button onClick={() => props.rrrr(newTitle)}>+</button>*/}
