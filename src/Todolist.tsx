@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent} from 'react';
+import React, {useState, KeyboardEvent, ChangeEvent} from 'react';
 import {FilterValueType} from "./App";
 
 type TaskType = {
@@ -10,8 +10,8 @@ type TaskType = {
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    yyyy:(taskID:string)=>void
-    // qqqq:(filterValue:FilterValueType)=>void //расстаможили функцию, которую передали из другого App файла
+    removeTask:(taskID:string)=>void
+    qqqq:(filterValue:FilterValueType)=>void //расстаможили функцию, которую передали из другого App файла
     rrrr:(newTitle:string)=>void
 }
 
@@ -22,14 +22,18 @@ export function Todolist(props: PropsType ) {//props: PropsType контейне
     const addTaskHandler=()=>{
         props.rrrr(newTitle)
         setNewTitle("")
+    }//вынесли логику из кнокпи наверх
 
-    }//вынесли логику из кнокпи
 const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
         if(event.key==="Enter"){
             addTaskHandler()
         }
     //если нажал ентер отпр сообщение
 }
+const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
+    setNewTitle(event.currentTarget.value)
+}
+
     let [filter, setFilter] = useState<FilterValueType>("All")//чтобы видно было, какой мяч кинули из функции filterTasks
 //используем useState, после этого глобально видим, что было передано из тодолиста в функцию. setFilter получает значение
 //и переносится в filter
@@ -47,39 +51,48 @@ const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
         //сэту setFilter
         setFilter(filterValue)
         /*засетать filterValue в новый стейт и.....поменять на 26 и 30 строке...*/}
+    const removeTaskHandler=(elID:string)=>{
+            props.removeTask(elID)
+         } //2 вариант использования, но появляется лишняя отрисовка, потому что в баттоне вызываем ф-ию 2 раза, но зона
+    //видимости лучше, в сравнении с 1 вариантом
+    const changeFilterTsarHandler=()=>{
+
+    }
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input value={newTitle}
-                   onKeyDown={onKeyPressHandler}  onChange={(event)=>
-                setNewTitle(event.currentTarget.value)} />
+            <input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={onChangeHandler} />
+            {/*<input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={(event)=> setNewTitle(event.currentTarget.value)} />*/}
            {/*собака без поводка вэлью и ньютайтл--если убрать, то наша строка так и будет без обновлений*/}
             <button onClick={addTaskHandler}>+</button>
             {/*<button onClick={() => props.rrrr(newTitle)}>+</button>*/}
         </div>
         <ul>
-            {filterTasksDone.map((el, index) => {
-                return (
-                    <li key={el.id}>
-                        <input type="checkbox" checked={el.isDone}/>
-                        <span>{el.title}</span>
-                        <button onClick={() => {
-                            {
-                                props.yyyy(el.id)
-                            }
-                        }}>X
-                        </button>
-                    </li>
-                )
-            })} {/*{(el=>)}*/}
+            {
+                filterTasksDone.map(el =>{
+                    // const removeTaskHandler=()=>{
+                    //     props.removeTask(el.id)
+                    // }//1 вариант использования, но как бы не там, где должна быть, все ф-ии мы пишем выше, чем ретурн
+                    //но если используем 1 раз функцию, то можено и так
+                    return(
+                        <li key={el.id}>
+                            <input type="checkbox" checked={el.isDone}/>
+                            <span>{el.title}</span>
+                            <button onClick={()=>removeTaskHandler(el.id)}>X
+                            </button>
+                        </li>
+                    )
+                } )
+            } {/*{(el=>)}*/}
             {/*<li><input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span></li>*/}
             {/*<li><input type="checkbox" checked={props.tasks[1].isDone}/> <span>{props.tasks[1].title}</span></li>*/}
             {/*<li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>*/}
         </ul>
         <div>
-            <button onClick={() => filterTasks("All")}>All</button>
-            <button onClick={() => filterTasks("Active")}>Active</button>
-            <button onClick={() => filterTasks("Completed")}>Completed</button>
+            <button onClick={() => {props.qqqq("All")}}>All</button>
+            {/*<button onClick={() => filterTasks("All")}>All</button>*/}
+            <button onClick={() => {props.qqqq("Active")}}>Active</button>
+            <button onClick={() => {props.qqqq("Completed")}}>Completed</button>
         </div>
     </div>
 }
