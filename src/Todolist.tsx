@@ -1,5 +1,6 @@
 import React, {useState, KeyboardEvent, ChangeEvent} from 'react';
 import {FilterValueType} from "./App";
+import {Button} from "./components/Button";
 
 type TaskType = {
     id: string
@@ -67,8 +68,9 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             <input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={onChangeHandler} />
             {/*<input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={(event)=> setNewTitle(event.currentTarget.value)} />*/}
            {/*собака без поводка вэлью и ньютайтл--если убрать, то наша строка так и будет без обновлений*/}
-            <button onClick={addTaskHandler}>+</button>
+           {/* <button onClick={addTaskHandler}>+</button>*/}
             {/*<button onClick={() => props.rrrr(newTitle)}>+</button>*/}
+            <Button name={"+"}/>
         </div>
         <ul>
             {
