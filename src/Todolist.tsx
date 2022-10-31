@@ -70,7 +70,9 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
            {/*собака без поводка вэлью и ньютайтл--если убрать, то наша строка так и будет без обновлений*/}
            {/* <button onClick={addTaskHandler}>+</button>*/}
             {/*<button onClick={() => props.rrrr(newTitle)}>+</button>*/}
-            <Button name={"+"}/>
+            <Button name={"+"} callBack={addTaskHandler}/>
+            {/*вызываем компоненту button, она вызывает фунцию onClickHandler,*/}
+            {/*onClickHandler вызывает коллбэк , а коллбэк вызывает addTaskHandler}*/}
         </div>
         <ul>
             {
@@ -83,8 +85,9 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
                         <li key={el.id}>
                             <input type="checkbox" checked={el.isDone}/>
                             <span>{el.title}</span>
-                            <button onClick={()=>removeTaskHandler(el.id)}>X
-                            </button>
+                            {/*<button onClick={()=>removeTaskHandler(el.id)}>X*/}
+                            {/*</button>*/}
+                            <Button name={"X"} callBack={()=>removeTaskHandler(el.id)}/>
                         </li>
                     )
                 } )
@@ -94,9 +97,12 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             {/*<li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>*/}
         </ul>
         <div>
-            <button onClick={()=>changeFilterTsarHandler("All")}>All</button>
-            <button onClick={()=>changeFilterTsarHandler("Active")}>Active</button>
-            <button onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>
+            {/*<button onClick={()=>changeFilterTsarHandler("All")}>All</button>*/}
+            {/*<button onClick={()=>changeFilterTsarHandler("Active")}>Active</button>*/}
+            {/*<button onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>*/}
+            <Button name={"All"} callBack={()=>changeFilterTsarHandler("All")}/>
+            <Button name={"Active"} callBack={()=>changeFilterTsarHandler("Active")}/>
+            <Button name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")}/>
             {/*<button onClick={() => filterTasks("All")}>All</button>*/}
             {/*/!*<button onClick={() => {props.qqqq("Completed")}}>Completed</button>*!/старые методы*/}
         </div>
