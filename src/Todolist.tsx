@@ -1,6 +1,7 @@
 import React, {useState, KeyboardEvent, ChangeEvent} from 'react';
 import {FilterValueType} from "./App";
 import {Button} from "./components/Button";
+import styles from "./Todolist.module.css"
 
 type TaskType = {
     id: string
@@ -19,12 +20,14 @@ type PropsType = {
 
 export function Todolist(props: PropsType ) {//props: PropsType контейнер, передаем все.. в ней лежит функция, которая из App
     const [newTitle, setNewTitle]=useState("")
-    console.log(newTitle)
+    const [error, setError]=useState(false)
 
     const addTaskHandler=()=>{
         if(newTitle.trim()!=="") {
             props.rrrr(newTitle.trim())
             setNewTitle("")
+        }else{
+            setError(true)
         }
     }//вынесли логику из кнокпи наверх
 
@@ -35,6 +38,7 @@ const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
     //если нажал ентер отпр сообщение
 }
 const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
+        setError(false)
     setNewTitle(event.currentTarget.value.trim())
 }
 
@@ -68,7 +72,7 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input value={newTitle}
+            <input className={error ? styles.error : undefined} value={newTitle}
                    onKeyDown={onKeyPressHandler}
                    onChange={onChangeHandler} />
             {/*<input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={(event)=> setNewTitle(event.currentTarget.value)} />*/}
@@ -78,6 +82,7 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             <Button name={"+"} callBack={addTaskHandler}/>
             {/*вызываем компоненту button, она вызывает фунцию onClickHandler,*/}
             {/*onClickHandler вызывает коллбэк , а коллбэк вызывает addTaskHandler}*/}
+            {error && <div className={styles.errorMessage}>Title is required</div>}
         </div>
         <ul>
             {
