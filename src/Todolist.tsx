@@ -22,8 +22,10 @@ export function Todolist(props: PropsType ) {//props: PropsType контейне
     console.log(newTitle)
 
     const addTaskHandler=()=>{
-        props.rrrr(newTitle)
-        setNewTitle("")
+        if(newTitle.trim()!=="") {
+            props.rrrr(newTitle.trim())
+            setNewTitle("")
+        }
     }//вынесли логику из кнокпи наверх
 
 const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
@@ -33,7 +35,7 @@ const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
     //если нажал ентер отпр сообщение
 }
 const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
-    setNewTitle(event.currentTarget.value)
+    setNewTitle(event.currentTarget.value.trim())
 }
 
     let [filter, setFilter] = useState<FilterValueType>("All")//чтобы видно было, какой мяч кинули из функции filterTasks
