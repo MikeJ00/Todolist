@@ -51,6 +51,36 @@ function App() {
            setFilter(filterValue)
             //засетать filterValue в новый стейт и.....поменять на 26 и 30 строке...
     }
+        const changeCheckBox=(taskID:string, eventValue:boolean)=> {
+            setTasks(tasks1.map(el => el.id === taskID ? {...el, isDone: eventValue} : el))
+            //изменения в setTasks ...tasks1 удаляем потому что map за нас создаст новый массив
+
+            // setTasks([...tasks1, tasks1.map(el=>el.id===taskID ? {...el, isDone:eventValue} : el)])
+            //    делаем копию массива ...tasks1, прежде чем делаем что-либо
+            //    берем все наши таски и идем мэпом tasks1.map
+            //    находим, что нам необходимо el=>el.id===taskID
+            //    2 варианта развития
+            //    ? совпало...делаем копию ...el, потому что изменения будут, изменения isDone:eventValue
+            //    : не совпало, так и возвращаем
+
+            // setTasks([...tasks1, tasks1.map(el=>el.id===taskID ? {...el, isDone:eventValue} : el)])
+            //isDone:eventValue можем изменить isDone на что угодно, пример mops:true, но....
+            //тогда наш массив выглядил бы так:{ id: 4, title: "Angular", isDone: false, mops:true }
+            //но нам нужн изменить значение isDone, из-за этого пишем вот так:isDone: eventValue
+            //и массив будет выглядеть вот так: id: v1(), title: "Angular", isDone: false
+
+            //    isDone:eventValue почеуму так? ключ: значение
+            //    const prepod={
+            // Igor:true потому что это объект и нужен ключ: значение
+        // }
+        //
+
+        //     const newTask=tasks1.map(t=>{
+        //         return t.id===tID ? {...t, isDone: !t.isDone} :t
+        //     })
+        //         setTasks(newTask)
+        //     // console.log("qqqqqq")
+        }
 
 
     //если "active", то отрисуй el.isDone
@@ -78,6 +108,7 @@ function App() {
                       removeTask={removeTasks}
                       rrrr={addTask}
                       qqqq={filterTasks}
+                      wwww={changeCheckBox}
             />
         </div>
     );

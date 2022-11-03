@@ -14,6 +14,7 @@ type PropsType = {
     removeTask:(taskID:string)=>void
     qqqq:(filterValue:FilterValueType)=>void //расстаможили функцию, которую передали из другого App файла
     rrrr:(newTitle:string)=>void
+    wwww:(taskID:string,eventValue:boolean)=>void
 }
 
 export function Todolist(props: PropsType ) {//props: PropsType контейнер, передаем все.. в ней лежит функция, которая из App
@@ -65,7 +66,9 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={onChangeHandler} />
+            <input value={newTitle}
+                   onKeyDown={onKeyPressHandler}
+                   onChange={onChangeHandler} />
             {/*<input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={(event)=> setNewTitle(event.currentTarget.value)} />*/}
            {/*собака без поводка вэлью и ньютайтл--если убрать, то наша строка так и будет без обновлений*/}
            {/* <button onClick={addTaskHandler}>+</button>*/}
@@ -77,13 +80,17 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
         <ul>
             {
                 filterTasksDone.map(el =>{
+                    const onChangeCheckbox = (event:ChangeEvent<HTMLInputElement>)=>{
+                        props.wwww(el.id,event.currentTarget.checked)
+                        // console.log(event.currentTarget.checked)
+                    }
                     // const removeTaskHandler=()=>{
                     //     props.removeTask(el.id)
                     // }//1 вариант использования, но как бы не там, где должна быть, все ф-ии мы пишем выше, чем ретурн
                     //но если используем 1 раз функцию, то можено и так
                     return(
                         <li key={el.id}>
-                            <input type="checkbox" checked={el.isDone}/>
+                            <input type="checkbox" checked={el.isDone} onChange={onChangeCheckbox}/>
                             <span>{el.title}</span>
                             {/*<button onClick={()=>removeTaskHandler(el.id)}>X*/}
                             {/*</button>*/}
