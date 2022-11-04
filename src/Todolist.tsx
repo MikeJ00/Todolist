@@ -20,14 +20,15 @@ type PropsType = {
 
 export function Todolist(props: PropsType ) {//props: PropsType контейнер, передаем все.. в ней лежит функция, которая из App
     const [newTitle, setNewTitle]=useState("")
-    const [error, setError]=useState(false)
+    const [error, setError]=useState<string|null>("")
+    const [activeButton, setActiveButton]=useState<FilterValueType>("All")
 
     const addTaskHandler=()=>{
         if(newTitle.trim()!=="") {
             props.rrrr(newTitle.trim())
             setNewTitle("")
         }else{
-            setError(true)
+            setError("Titile is required")
         }
     }//вынесли логику из кнокпи наверх
 
@@ -38,7 +39,7 @@ const onKeyPressHandler=(event:KeyboardEvent<HTMLInputElement>)=>{
     //если нажал ентер отпр сообщение
 }
 const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
-        setError(false)
+        setError(null)
     setNewTitle(event.currentTarget.value.trim())
 }
 
@@ -66,13 +67,27 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
     // const changeFilterAllHandler=()=>{
     //     props.qqqq("All")
     // }
-    const changeFilterTsarHandler=(filterValue:FilterValueType)=>{
-        props.qqqq(filterValue)
+    // const changeFilterTsarHandler=(filterValue:FilterValueType)=>{
+    //     props.qqqq(filterValue);
+    //     setActiveButton("All")
+    // }
+    const onAllClickHandler = () => {
+        props.qqqq("All");
+        setActiveButton("All")
     }
+    const onActiveClickHandler = () => {
+        props.qqqq("Active")
+        setActiveButton("Active")
+    }
+    const onCompletedClickHandler = () => {
+        props.qqqq("Completed")
+        setActiveButton("Completed")
+    }
+
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input className={error ? styles.error : undefined} value={newTitle}
+            <input className={error ? styles.error : " "} value={newTitle}
                    onKeyDown={onKeyPressHandler}
                    onChange={onChangeHandler} />
             {/*<input value={newTitle} onKeyDown={onKeyPressHandler}  onChange={(event)=> setNewTitle(event.currentTarget.value)} />*/}
@@ -82,7 +97,7 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             <Button name={"+"} callBack={addTaskHandler}/>
             {/*вызываем компоненту button, она вызывает фунцию onClickHandler,*/}
             {/*onClickHandler вызывает коллбэк , а коллбэк вызывает addTaskHandler}*/}
-            {error && <div className={styles.errorMessage}>Title is required</div>}
+            {error && <div className={styles.errorMessage}>{error}</div>}
         </div>
         <ul>
             {
@@ -96,7 +111,7 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
                     // }//1 вариант использования, но как бы не там, где должна быть, все ф-ии мы пишем выше, чем ретурн
                     //но если используем 1 раз функцию, то можено и так
                     return(
-                        <li key={el.id}>
+                        <li key={el.id} className={el.isDone? styles.isDone : " "}>
                             <input type="checkbox" checked={el.isDone} onChange={onChangeCheckbox}/>
                             <span>{el.title}</span>
                             {/*<button onClick={()=>removeTaskHandler(el.id)}>X*/}
@@ -111,14 +126,21 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             {/*<li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>*/}
         </ul>
         <div>
-            {/*<button onClick={()=>changeFilterTsarHandler("All")}>All</button>*/}
-            {/*<button onClick={()=>changeFilterTsarHandler("Active")}>Active</button>*/}
-            {/*<button onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>*/}
-            <Button name={"All"} callBack={()=>changeFilterTsarHandler("All")}/>
-            <Button name={"Active"} callBack={()=>changeFilterTsarHandler("Active")}/>
-            <Button name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")}/>
+            {/*<button className={activeButton==="All" ?styles.activeFilter:""} onClick={()=>changeFilterTsarHandler("All")}>All</button>*/}
+            {/*<button className={activeButton==="Active" ?styles.activeFilter:""} onClick={()=>changeFilterTsarHandler("Active")}>Active</button>*/}
+            {/*<button className={activeButton==="Completed" ?styles.activeFilter:""} onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>*/}
+
+            {/*<Button className={activeButton==="All" ?styles.activeFilter:" "}  name={"All"}  callBack={()=>changeFilterTsarHandler("All")}/>*/}
+            {/*<Button className={activeButton==="Active" ? styles.activeFilter:" "} name={"Active"} callBack={()=>changeFilterTsarHandler("Active")}/>*/}
+            {/*<Button className={activeButton==="Completed" ? styles.activeFilter:" "} name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")}/>*/}
+            {/*общая кнопка работает, но не работают стили, вернулся к методу как в уроке*/}
+
             {/*<button onClick={() => filterTasks("All")}>All</button>*/}
-            {/*/!*<button onClick={() => {props.qqqq("Completed")}}>Completed</button>*!/старые методы*/}
+
+            <button className={activeButton==="All" ?styles.activeFilter :" "} onClick={onAllClickHandler}>All</button>
+            <button className={activeButton==="Active" ?styles.activeFilter :" "} onClick={onActiveClickHandler}>Active</button>
+            <button className={activeButton==="Completed" ?styles.activeFilter :" "} onClick={onCompletedClickHandler}>Completed</button>
+            {/*старые методы*/}
         </div>
     </div>
 }

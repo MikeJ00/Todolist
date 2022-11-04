@@ -4,7 +4,7 @@ import {Todolist} from "./Todolist";
 import {v1} from "uuid";
 
 
-export type FilterValueType="All"|"Active"|"Completed"|"Delete All"
+export type FilterValueType="All"|"Active"|"Completed"
 
 function App() {
 
