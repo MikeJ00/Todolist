@@ -16,6 +16,7 @@ type PropsType = {
     qqqq:(filterValue:FilterValueType)=>void //расстаможили функцию, которую передали из другого App файла
     rrrr:(newTitle:string)=>void
     wwww:(taskID:string,eventValue:boolean)=>void
+    filter:FilterValueType
 }
 
 export function Todolist(props: PropsType ) {//props: PropsType контейнер, передаем все.. в ней лежит функция, которая из App
@@ -138,9 +139,9 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             {/*<button className={activeButton==="Completed" ?styles.activeFilter:""} onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>*/}
             {/*не правильно потому что класс нейм должен быть в компоненте, а не в функции*/}
 
-            <Button name={"All"}  callBack={()=>changeFilterTsarHandler("All")} Filter={"All"}/>
-            <Button name={"Active"} callBack={()=>changeFilterTsarHandler("Active")} Filter={"Active"}/>
-            <Button name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")} Filter={"Completed"}/>
+            <Button name={"All"}  callBack={()=>changeFilterTsarHandler("All")} Filter={props.filter}/>
+            <Button name={"Active"} callBack={()=>changeFilterTsarHandler("Active")} Filter={props.filter}/>
+            <Button name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")} Filter={props.filter}/>
             {/*общая кнопка работает и работают стили, но сразу 3 стиля работают..... вернулся к методу как в уроке*/}
 
             {/*<button onClick={() => filterTasks("All")}>All</button>*/}
