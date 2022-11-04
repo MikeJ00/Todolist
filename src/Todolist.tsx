@@ -64,22 +64,22 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
     // const changeFilterAllHandler=()=>{
     //     props.qqqq("All")
     // }
-    // const changeFilterTsarHandler=(filterValue:FilterValueType)=>{
-    //     props.qqqq(filterValue);
-    //     setActiveButton("All")
-    // }
-    const onAllClickHandler = () => {
-        props.qqqq("All");
+    const changeFilterTsarHandler=(filterValue:FilterValueType)=>{
+        props.qqqq(filterValue);
         setActiveButton("All")
     }
-    const onActiveClickHandler = () => {
-        props.qqqq("Active")
-        setActiveButton("Active")
-    }
-    const onCompletedClickHandler = () => {
-        props.qqqq("Completed")
-        setActiveButton("Completed")
-    }
+    // const onAllClickHandler = () => {
+    //     props.qqqq("All");
+    //     setActiveButton("All")
+    // }
+    // const onActiveClickHandler = () => {
+    //     props.qqqq("Active")
+    //     setActiveButton("Active")
+    // }
+    // const onCompletedClickHandler = () => {
+    //     props.qqqq("Completed")
+    //     setActiveButton("Completed")
+    // }
     const onChangeCheckbox = (qID:string,eventValue:boolean)=>{
         props.wwww(qID,eventValue)
         // console.log(event.currentTarget.checked)
@@ -136,17 +136,18 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
             {/*<button className={activeButton==="All" ?styles.activeFilter:""} onClick={()=>changeFilterTsarHandler("All")}>All</button>*/}
             {/*<button className={activeButton==="Active" ?styles.activeFilter:""} onClick={()=>changeFilterTsarHandler("Active")}>Active</button>*/}
             {/*<button className={activeButton==="Completed" ?styles.activeFilter:""} onClick={() =>changeFilterTsarHandler("Completed")}>Completed</button>*/}
+            {/*не правильно потому что класс нейм должен быть в компоненте, а не в функции*/}
 
-            {/*<Button className={activeButton==="All" ?styles.activeFilter:" "}  name={"All"}  callBack={()=>changeFilterTsarHandler("All")}/>*/}
-            {/*<Button className={activeButton==="Active" ? styles.activeFilter:" "} name={"Active"} callBack={()=>changeFilterTsarHandler("Active")}/>*/}
-            {/*<Button className={activeButton==="Completed" ? styles.activeFilter:" "} name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")}/>*/}
-            {/*общая кнопка работает, но не работают стили, вернулся к методу как в уроке*/}
+            <Button name={"All"}  callBack={()=>changeFilterTsarHandler("All")} Filter={"All"}/>
+            <Button name={"Active"} callBack={()=>changeFilterTsarHandler("Active")} Filter={"Active"}/>
+            <Button name={"Completed"} callBack={()=>changeFilterTsarHandler("Completed")} Filter={"Completed"}/>
+            {/*общая кнопка работает и работают стили, но сразу 3 стиля работают..... вернулся к методу как в уроке*/}
 
             {/*<button onClick={() => filterTasks("All")}>All</button>*/}
 
-            <button className={activeButton==="All" ?styles.activeFilter :" "} onClick={onAllClickHandler}>All</button>
-            <button className={activeButton==="Active" ?styles.activeFilter :" "} onClick={onActiveClickHandler}>Active</button>
-            <button className={activeButton==="Completed" ?styles.activeFilter :" "} onClick={onCompletedClickHandler}>Completed</button>
+            {/*<button className={activeButton==="All" ?styles.activeFilter :" "} onClick={onAllClickHandler}>All</button>*/}
+            {/*<button className={activeButton==="Active" ?styles.activeFilter :" "} onClick={onActiveClickHandler}>Active</button>*/}
+            {/*<button className={activeButton==="Completed" ?styles.activeFilter :" "} onClick={onCompletedClickHandler}>Completed</button>*/}
             {/*старые методы*/}
         </div>
     </div>
