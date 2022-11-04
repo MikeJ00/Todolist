@@ -14,6 +14,6 @@ export const Button=(props:buttonPropsType)=>{
 
     }
     return(
-        <button onClick={onClickHandler}>{props.name}</button>
+        <button className={props.name===styles.activeFilter ? styles.activeFilter : " "} onClick={onClickHandler}>{props.name}</button>
     )
 }

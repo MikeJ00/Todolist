@@ -60,10 +60,7 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
         //сэту setFilter
         setFilter(filterValue)
         /*засетать filterValue в новый стейт и.....поменять на 26 и 30 строке...*/}
-    const removeTaskHandler=(elID:string)=>{
-            props.removeTask(elID)
-         } //2 вариант использования, но появляется лишняя отрисовка, потому что в баттоне вызываем ф-ию 2 раза, но зона
-    //видимости лучше, в сравнении с 1 вариантом
+
     // const changeFilterAllHandler=()=>{
     //     props.qqqq("All")
     // }
@@ -83,6 +80,14 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
         props.qqqq("Completed")
         setActiveButton("Completed")
     }
+    const onChangeCheckbox = (qID:string,eventValue:boolean)=>{
+        props.wwww(qID,eventValue)
+        // console.log(event.currentTarget.checked)
+    }
+    const removeTaskHandler=(elID:string)=>{
+        props.removeTask(elID)
+    } //2 вариант использования, но появляется лишняя отрисовка, потому что в баттоне вызываем ф-ию 2 раза, но зона
+    //видимости лучше, в сравнении с 1 вариантом
 
     return <div>
         <h3>{props.title}</h3>
@@ -102,17 +107,19 @@ const onChangeHandler=(event:ChangeEvent<HTMLInputElement>)=>{
         <ul>
             {
                 filterTasksDone.map(el =>{
-                    const onChangeCheckbox = (event:ChangeEvent<HTMLInputElement>)=>{
-                        props.wwww(el.id,event.currentTarget.checked)
-                        // console.log(event.currentTarget.checked)
-                    }
-                    // const removeTaskHandler=()=>{
-                    //     props.removeTask(el.id)
+                    // const onChangeCheckbox = (event:ChangeEvent<HTMLInputElement>)=>{
+                    //     props.wwww(el.id,event.currentTarget.checked)
+                    //     // console.log(event.currentTarget.checked)
+                    // } **1
+                    //  const removeTaskHandler=()=>{
+                    //      props.removeTask(el.id)
                     // }//1 вариант использования, но как бы не там, где должна быть, все ф-ии мы пишем выше, чем ретурн
                     //но если используем 1 раз функцию, то можено и так
                     return(
                         <li key={el.id} className={el.isDone? styles.isDone : " "}>
-                            <input type="checkbox" checked={el.isDone} onChange={onChangeCheckbox}/>
+                            <input type="checkbox" checked={el.isDone} onChange={(event)=>onChangeCheckbox(el.id, event.currentTarget.checked)}/>
+                            {/*<input type="checkbox" checked={el.isDone} onChange={onChangeCheckbox}/>*/}
+                            {/*как было раньше **1*/}
                             <span>{el.title}</span>
                             {/*<button onClick={()=>removeTaskHandler(el.id)}>X*/}
                             {/*</button>*/}
