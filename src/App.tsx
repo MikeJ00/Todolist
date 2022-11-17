@@ -47,12 +47,15 @@ function App() {
     // let [filter, setFilter] = useState<FilterValuesType>("all");
     // let arr=[1,2,3,4,5,6,7,8,9]
     // console.log(tasks[todolistID1])
+    const removeTodolist=(todolistID:string)=>{
+        setTodolist(todolist.filter(el=>el.id!==todolistID))
+        delete tasks[todolistID]
+    }
     function removeTask(todolistID:string, taskID: string) {
         // let filteredTasks = tasks.filter(t => t.id != id);
         // setTasks(filteredTasks);
         setTasks({...tasks, [todolistID]:tasks [todolistID].filter(el=>el.id!==taskID)})
     }
-
     function addTask(todolistID:string, title: string) {
         let newTask = {id: v1(), title: title, isDone: false};
         // let newTasks = [task, ...tasks];
@@ -121,6 +124,7 @@ function App() {
                         changeTaskStatus={changeStatus}
                         // filter={filter}
                         filter={el.filter}
+                        removeTodolist={removeTodolist}
                     />
                 )
             })}
