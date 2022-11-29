@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {Input} from "./components/Input";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -60,9 +61,12 @@ function App() {
 
     function addTask(todolistID: string, title: string) {
         let newTask = {id: v1(), title: title, isDone: false};
+        let todolistTasks = tasks[todolistID];
+        tasks[todolistID] = [newTask, ...todolistTasks];
+        setTasks({...tasks});
         // let newTasks = [task, ...tasks];
         // setTasks(newTasks);
-        setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
+        // setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
 
     //tasks - весь дом
@@ -101,9 +105,14 @@ function App() {
         // setFilter(value);
         setTodolist(todolist.map(el => el.id === todolistID ? {...el, filter: value} : el))
     }
-
+    const addTodolist=(newTitle:string,)=>{
+        const newTodolistId=v1()
+        const newTodo:TodolistsType = {id: newTodolistId, title:newTitle, filter: "all"}
+        setTodolist([newTodo, ...todolist])
+    }
     return (
         <div className="App">
+            <Input callBack={addTodolist} />
             {/*{arr.map ((el)=> {*/}
             {todolist.map((el) => {
                 let tasksForTodolist = tasks[el.id];

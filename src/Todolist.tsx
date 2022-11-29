@@ -22,28 +22,28 @@ type PropsType = {
 
 export function Todolist(props: PropsType) {
 
-    // let [title, setTitle] = useState("")
-    // let [error, setError] = useState<string | null>(null)
+    let [title, setTitle] = useState("")
+    let [error, setError] = useState<string | null>(null)
 
-    // const addTask = () => {
-    //     if (title.trim() !== "") {
-    //         props.addTask(props.todolistID, title.trim());
-    //         setTitle("");
-    //     } else {
-    //         setError("Title is required");
-    //     }
-    // }
+    const addTask = () => {
+        if (title.trim() !== "") {
+            props.addTask(props.todolistID, title.trim());
+            setTitle("");
+        } else {
+            setError("Title is required");
+        }
+    }
 
-    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setTitle(e.currentTarget.value)
-    // }
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
 
-    // const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    //     setError(null);
-    //     if (e.charCode === 13) {
-    //         addTask();
-    //     }
-    // // }
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError(null);
+        if (e.charCode === 13) {
+            addTask();
+        }
+    }
 
     const onAllClickHandler = () => props.changeFilter(props.todolistID, "all");
     const onActiveClickHandler = () => props.changeFilter(props.todolistID, "active");
@@ -51,13 +51,16 @@ export function Todolist(props: PropsType) {
     const removeTodolistHandler = () => {
         props.removeTodolist(props.todolistID)
     }
+    const addTaskHandler=(newTitle:string)=>{
+        props.addTask(newTitle,props.todolistID)
+    }
 
     return <div>
         <h3>
             {props.title}
             <button onClick={removeTodolistHandler}>X</button>
         </h3>
-        <Input callBack={props.addTask} todolistID={props.todolistID}/>
+        <Input callBack={addTaskHandler}/>
         {/*<div>*/}
         {/*    <input value={title}*/}
         {/*           onChange={onChangeHandler}*/}
