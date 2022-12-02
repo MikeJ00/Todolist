@@ -44,6 +44,9 @@ function App() {
             {id: v1(), title: "Beer", isDone: false},//4
         ]
     });
+    const updateTask=(todolistID: string, taskID:string, updateTitle:string)=>{
+        setTasks({...tasks,[todolistID]:tasks[todolistID].map(el=>el.id===taskID ? {...el,title:updateTitle}:el)})
+    }
     // console.log(tasks[todolistID2][2])
     // let [filter, setFilter] = useState<FilterValuesType>("all");
     // let arr=[1,2,3,4,5,6,7,8,9]
@@ -59,7 +62,7 @@ function App() {
         setTasks({...tasks, [todolistID]: tasks [todolistID].filter(el => el.id !== taskID)})
     }
 
-    function addTask(todolistID: string, title: string) {
+    function addTask( title: string, todolistID: string,) { //  todolistID: string,title: string, not work///////
         let newTask = {id: v1(), title: title, isDone: false};
         let todolistTasks = tasks[todolistID];
         tasks[todolistID] = [newTask, ...todolistTasks];
@@ -68,6 +71,7 @@ function App() {
         // setTasks(newTasks);
         // setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
+
 
     //tasks - весь дом
     //todolistID - квартира
@@ -109,6 +113,7 @@ function App() {
         const newTodolistId=v1()
         const newTodo:TodolistsType = {id: newTodolistId, title:newTitle, filter: "all"}
         setTodolist([newTodo, ...todolist])
+        setTasks({...tasks,[newTodolistId]:[]})
     }
     return (
         <div className="App">
@@ -138,6 +143,7 @@ function App() {
                         // filter={filter}
                         filter={el.filter}
                         removeTodolist={removeTodolist}
+                        updateTask={updateTask}
                     />
                 )
             })}
