@@ -1,13 +1,13 @@
 import React, {ChangeEvent, useState} from 'react';
 
 type PropsType = {
-    callBack: (newTitle: string) => void
-    title: string
+    callBack: (oldTitle: string) => void
+    oldtitle: string
 }
 
 export const EditableSpan = (props: PropsType) => {
     const [edit, setEdit] = useState(false)
-    const [updateTitle, setUpdateTitle] = useState(props.title)
+    const [updateTitle, setUpdateTitle] = useState(props.oldtitle)
 
     const onChangeHandler=(e: ChangeEvent<HTMLInputElement>) => {
         setUpdateTitle(e.currentTarget.value)
@@ -17,12 +17,12 @@ export const EditableSpan = (props: PropsType) => {
     }
     const onDoubleClickHandler=()=>{
         setEdit(!edit)
-        addTask()
+        edit && addTask()
     }
     return (
         edit
             ? <input onChange={onChangeHandler} onBlur={onDoubleClickHandler} autoFocus value={updateTitle}/>
-            : <span onDoubleClick={onDoubleClickHandler}>{props.title}</span>
+            : <span onDoubleClick={onDoubleClickHandler}>{props.oldtitle}</span>
     );
 };
 

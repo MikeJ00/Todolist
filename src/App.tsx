@@ -45,7 +45,12 @@ function App() {
         ]
     });
     const updateTask=(todolistID: string, taskID:string, updateTitle:string)=>{
-        setTasks({...tasks,[todolistID]:tasks[todolistID].map(el=>el.id===taskID ? {...el,title:updateTitle}:el)})
+        setTasks({...tasks,[todolistID]:tasks[todolistID].map
+            (el=>el.id===taskID ? {...el,title:updateTitle}:el)})
+    }
+    const updateTodolist=(todolistID: string,updateTitle:string)=>{
+        // console.log(updateTitle)
+        setTodolist(todolist.map(el=>el.id===todolistID ?{...el,title:updateTitle}:el))
     }
     // console.log(tasks[todolistID2][2])
     // let [filter, setFilter] = useState<FilterValuesType>("all");
@@ -144,6 +149,7 @@ function App() {
                         filter={el.filter}
                         removeTodolist={removeTodolist}
                         updateTask={updateTask}
+                        updateTodolist={updateTodolist}
                     />
                 )
             })}
