@@ -101,9 +101,10 @@ export function Todolist(props: PropsType) {
                     //-------------Вынести updateTaskHandler за пределы map-------
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <input type="checkbox"
-                               onChange={onChangeHandler}
-                               checked={t.isDone}/>
+                        {/*<input type="checkbox"*/}
+                        {/*       onChange={onChangeHandler}*/}
+                        {/*       checked={t.isDone}/>*/}
+                        <Checkbox onChange={onChangeHandler} checked={t.isDone}  />
                         {/*<span>{t.title}</span>*/}
                         {/*<EditableSpan callBack={updateTaskHandler} oldtitle={t.title}/>*/}
                         <EditableSpan callBack={(updateTitle)=>updateTaskHandler(updateTitle,t.id)} oldtitle={t.title}/>
