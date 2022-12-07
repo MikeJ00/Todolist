@@ -1,11 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
-import {Input} from "./components/Input";
 import {EditableSpan} from "./components/EditableSpan";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
+import {AddItemForm} from "./components/Input";
 
 type TaskType = {
     id: string
@@ -77,7 +77,7 @@ export function Todolist(props: PropsType) {
                 <DeleteIcon />
             </IconButton>
         </h3>
-        <Input callBack={addTaskHandler}/>
+        <AddItemForm addItem={addTaskHandler}/>
         {/*<div>*/}
         {/*    <input value={title}*/}
         {/*           onChange={onChangeHandler}*/}

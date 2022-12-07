@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
-import {Input} from "./components/Input";
+import {AddItemForm} from './components/Input';
+import {ButtonAppBar} from "./components/ButtonAppBar";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -122,37 +126,79 @@ function App() {
     }
     return (
         <div className="App">
-            <Input callBack={addTodolist} />
+            <ButtonAppBar/>
+            <Container fixed>
+
+                <Grid container style={{padding:"20px"}}>
+                <AddItemForm addItem={addTodolist} />
+                </Grid>
+
+                <Grid container spacing={3} >
+                {todolist.map((el) => {
+                    let tasksForTodolist = tasks[el.id];
+                    if (el.filter === "active") {
+                        tasksForTodolist = tasks[el.id].filter(t => !t.isDone);
+                        // tasksForTodolist = tasks.filter(t => t.isDone === false);
+                    }
+                    if (el.filter === "completed") {
+                        tasksForTodolist = tasks[el.id].filter(t => t.isDone);
+                        // tasksForTodolist = tasks.filter(t => t.isDone === true);
+                    }
+                    // debugger
+                    return <Grid item>
+                        <Paper style={{padding:"10px"}}>
+                        <Todolist
+                            key={el.id}
+                            todolistID={el.id}
+                            title={el.title}
+                            tasks={tasksForTodolist}
+                            removeTask={removeTask}
+                            changeFilter={changeFilter}
+                            addTask={addTask}
+                            changeTaskStatus={changeStatus}
+                            // filter={filter}
+                            filter={el.filter}
+                            removeTodolist={removeTodolist}
+                            updateTask={updateTask}
+                            updateTodolist={updateTodolist}
+                        />
+                        </Paper>
+                        </Grid>
+
+                })}
+                </Grid>
+            </Container>
+            {/*<AddItemForm addItem={addTodolist} />*/}
             {/*{arr.map ((el)=> {*/}
-            {todolist.map((el) => {
-                let tasksForTodolist = tasks[el.id];
-                if (el.filter === "active") {
-                    tasksForTodolist = tasks[el.id].filter(t => !t.isDone);
-                    // tasksForTodolist = tasks.filter(t => t.isDone === false);
-                }
-                if (el.filter === "completed") {
-                    tasksForTodolist = tasks[el.id].filter(t => t.isDone);
-                    // tasksForTodolist = tasks.filter(t => t.isDone === true);
-                }
-                // debugger
-                return (
-                    <Todolist
-                        key={el.id}
-                        todolistID={el.id}
-                        title={el.title}
-                        tasks={tasksForTodolist}
-                        removeTask={removeTask}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        changeTaskStatus={changeStatus}
-                        // filter={filter}
-                        filter={el.filter}
-                        removeTodolist={removeTodolist}
-                        updateTask={updateTask}
-                        updateTodolist={updateTodolist}
-                    />
-                )
-            })}
+            {/*{todolist.map((el) => {*/}
+            {/*    let tasksForTodolist = tasks[el.id];*/}
+            {/*    if (el.filter === "active") {*/}
+            {/*        tasksForTodolist = tasks[el.id].filter(t => !t.isDone);*/}
+            {/*        // tasksForTodolist = tasks.filter(t => t.isDone === false);*/}
+            {/*    }*/}
+            {/*    if (el.filter === "completed") {*/}
+            {/*        tasksForTodolist = tasks[el.id].filter(t => t.isDone);*/}
+            {/*        // tasksForTodolist = tasks.filter(t => t.isDone === true);*/}
+            {/*    }*/}
+            {/*    // debugger*/}
+            {/*    return (*/}
+            {/*        <Todolist*/}
+            {/*            key={el.id}*/}
+            {/*            todolistID={el.id}*/}
+            {/*            title={el.title}*/}
+            {/*            tasks={tasksForTodolist}*/}
+            {/*            removeTask={removeTask}*/}
+            {/*            changeFilter={changeFilter}*/}
+            {/*            addTask={addTask}*/}
+            {/*            changeTaskStatus={changeStatus}*/}
+            {/*            // filter={filter}*/}
+            {/*            filter={el.filter}*/}
+            {/*            removeTodolist={removeTodolist}*/}
+            {/*            updateTask={updateTask}*/}
+            {/*            updateTodolist={updateTodolist}*/}
+            {/*        />*/}
+            {/*    )*/}
+            {/*})}*/}
             {/*<Todolist title="What to learn"*/}
             {/*          tasks={tasksForTodolist}*/}
             {/*          removeTask={removeTask}*/}
