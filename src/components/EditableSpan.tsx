@@ -1,28 +1,15 @@
-import React, {ChangeEvent, useState} from 'react';
-
-type PropsType = {
-    callBack: (oldTitle: string) => void
-    oldtitle: string
+import React, {useState} from "react";
+type PropsType={
+    title:string
 }
-
-export const EditableSpan = (props: PropsType) => {
-    const [edit, setEdit] = useState(false)
-    const [updateTitle, setUpdateTitle] = useState(props.oldtitle)
-
-    const onChangeHandler=(e: ChangeEvent<HTMLInputElement>) => {
-        setUpdateTitle(e.currentTarget.value)
-    }
-    const addTask = () => {
-            props.callBack(updateTitle);
-    }
-    const onDoubleClickHandler=()=>{
+export const EditableSpan = (props:PropsType) => {
+    const [edit, setEdit]=useState(false)
+    const editFooHandler=()=>{
         setEdit(!edit)
-        edit && addTask()
     }
     return (
-        edit
-            ? <input onChange={onChangeHandler} onBlur={onDoubleClickHandler} autoFocus value={updateTitle}/>
-            : <span onDoubleClick={onDoubleClickHandler}>{props.oldtitle}</span>
+            edit
+            ?<input value={props.title} onBlur={editFooHandler}/>
+            :<span onDoubleClick={editFooHandler}>{props.title}</span>
     );
 };
-
