@@ -1,15 +1,21 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 type PropsType={
-    title:string
+    oldTitle:string
+    callBack:(newTitle:string)=>void
 }
 export const EditableSpan = (props:PropsType) => {
+    let [newTitle, setNewTitle] = useState(props.oldTitle)
     const [edit, setEdit]=useState(false)
     const editFooHandler=()=>{
         setEdit(!edit)
+        props.callBack(newTitle)
+    }
+    const onChangeHandler=(e:ChangeEvent<HTMLInputElement>)=>{
+        setNewTitle(e.currentTarget.value)
     }
     return (
             edit
-            ?<input value={props.title} onBlur={editFooHandler}/>
-            :<span onDoubleClick={editFooHandler}>{props.title}</span>
+            ?<input onChange={onChangeHandler} value={newTitle} onBlur={editFooHandler}/>
+            :<span onDoubleClick={editFooHandler}>{props.oldTitle}</span>
     );
 };

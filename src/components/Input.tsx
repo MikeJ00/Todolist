@@ -1,13 +1,14 @@
 // import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+
 type PropsType = {
-    callBack:(title:string)=>void
+    callBack: (title: string) => void
 }
-export const Input = (props:PropsType) => {
-    let [title, setTitle] = useState("")
-    let [error, setError] = useState<string | null>(null)
+export const Input = (props: PropsType) => {
+    const [title, setTitle] = useState("")
+    const [error, setError] = useState<string | null>(null)
     const addTask = () => {
         let newTitle = title.trim();
         if (newTitle !== "") {
@@ -26,6 +27,13 @@ export const Input = (props:PropsType) => {
             addTask();
         }
     }
+    const buttonStyle = {
+        maxWidth: "30px",
+        maxHeight: "30px",
+        minWidth: "30px",
+        minHeight: "30px",
+
+    }
     return (
         <div>
             <input value={title}
@@ -33,7 +41,9 @@ export const Input = (props:PropsType) => {
                    onKeyPress={onKeyPressHandler}
                    className={error ? "error" : ""}
             />
-            <button onClick={addTask}>+</button>
+            {/*<button onClick={addTask}>+</button>*/}
+            <Button onClick={addTask}
+                    style={buttonStyle}>+</Button>
             {error && <div className="error-message">{error}</div>}
         </div>
     );
