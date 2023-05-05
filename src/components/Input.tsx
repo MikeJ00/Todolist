@@ -1,6 +1,6 @@
 // import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import TextField from '@mui/material/TextField';
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type PropsType = {
@@ -28,21 +28,31 @@ export const Input = (props: PropsType) => {
         }
     }
     const buttonStyle = {
-        maxWidth: "30px",
-        maxHeight: "30px",
-        minWidth: "30px",
-        minHeight: "30px",
+        maxWidth: "38px",
+        maxHeight: "38px",
+        minWidth: "38px",
+        minHeight: "38px",
 
     }
     return (
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
+            {/*<input value={title}*/}
+            {/*       onChange={onChangeHandler}*/}
+            {/*       onKeyPress={onKeyPressHandler}*/}
+            {/*       className={error ? "error" : ""}*/}
+            {/*/>*/}
+            <TextField
+                size="small"
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+                value={title}
+                onChange={onChangeHandler}
+                onKeyDown={onKeyPressHandler}
             />
             {/*<button onClick={addTask}>+</button>*/}
             <Button onClick={addTask}
+                    size="small"
                     style={buttonStyle}>+</Button>
             {error && <div className="error-message">{error}</div>}
         </div>
