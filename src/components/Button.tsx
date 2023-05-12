@@ -1,12 +1,12 @@
  import React from 'react';
 import styles from "../Todolist.module.css";
-import {FilterValueType} from "../App";
+import {FilterValuesType} from "../App";
 
 type buttonPropsType={
     name:string
     callBack:()=>void
     className?:any
-    Filter?:FilterValueType
+    Filter?:FilterValuesType
     // универсальная функция callback, для того чтобы в этой фенкции
     // было 3 других функции addTaskHandler removeTaskHandler filterTasks
 }

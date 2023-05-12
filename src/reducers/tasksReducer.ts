@@ -7,7 +7,7 @@ type removeTasksACType = ReturnType<typeof removeTasksAC>
 type addTaskReturnACType = ReturnType<typeof addTaskAC>
 type changeCheckBoxReturnACType = ReturnType<typeof changeCheckBoxAC>
 
-export const tasksReducer= (state:TaskType[], action:RootType)=>{
+export const RootTaskReducer= (state:TaskType[], action:RootType)=>{
     switch (action.type) {
         case "REMOVE-TASK":{
             return state.filter(el=>el.id !== action.payload.taskID)
