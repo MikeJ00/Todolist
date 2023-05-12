@@ -9,6 +9,7 @@ type PropsType = {
 export const Input = (props: PropsType) => {
     const [title, setTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
+
     const addTask = () => {
         let newTitle = title.trim();
         if (newTitle !== "") {
@@ -44,17 +45,18 @@ export const Input = (props: PropsType) => {
             <TextField
                 size="small"
                 id="outlined-basic"
-                label="Outlined"
+                label={error ? "Title is required" : "Please type here" }
                 variant="outlined"
                 value={title}
                 onChange={onChangeHandler}
                 onKeyDown={onKeyPressHandler}
+                error = {!!error}
             />
             {/*<button onClick={addTask}>+</button>*/}
             <Button onClick={addTask}
                     size="small"
                     style={buttonStyle}>+</Button>
-            {error && <div className="error-message">{error}</div>}
+            {/*{error && <div className="error-message">{error}</div>}*/}
         </div>
     );
 };

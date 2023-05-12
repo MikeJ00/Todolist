@@ -3,6 +3,8 @@ import './App.css';
 import {TaskType, Todolist} from "./Todolist";
 import {v1} from 'uuid';
 import {Input} from "./components/Input";
+import {ButtonAppBar} from "./components/ButtonAppBar";
+import {Container, Grid, Paper} from "@mui/material";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -84,7 +86,12 @@ function App() {
     }
     return (
         <div className="App">
+            <ButtonAppBar/>
+            <Container fixed>
+                <Grid container style={{padding: "20px"}}>
             <Input callBack={addTodolist}/>
+                </Grid>
+                <Grid container spacing={3}>
             {/*{arr.map ((el)=> {*/}
             {todolist.map((el) => {
                 let tasksForTodolist = tasks[el.id];
@@ -97,10 +104,12 @@ function App() {
                     tasksForTodolist = tasks[el.id].filter(t => t.isDone);
                     // tasksForTodolist = tasks.filter(t => t.isDone === true);
                 }
+
                 return (
+                <Grid item key={el.id}>
+                    <Paper elevation={4} style={{padding: "10px"}}>
                     <Todolist
                         todolistID={el.id}
-                        key={el.id}
                         title={el.title}
                         tasks={tasksForTodolist}
                         removeTask={removeTask}
@@ -112,8 +121,12 @@ function App() {
                         editTask={editTask}
                         editTodo={editTodo}
                     />
+                        </Paper>
+                </Grid>
                 )
             })}
+                </Grid>
+            </Container>
         </div>
     );
 }
