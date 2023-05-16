@@ -1,17 +1,16 @@
-import React from "react";
-import {TaskType} from "../Todolist";
+import React, {ChangeEvent} from "react";
 
 
 type PropsType = {
-    callBack:(tasks:Array<TaskType>)=>void
+    callBack:(newIsDone:boolean)=>void
     isDone:boolean
 }
 export const SuperCheckbox = (props:PropsType) => {
-    const onChangeHandler=()=>{
-        props.callBack(tasks)
+    const onChangeHandler=(e:ChangeEvent<HTMLInputElement>)=>{
+        props.callBack(e.currentTarget.checked)
     }
     return (
-        <input type="text"
+        <input type="checkbox"
                onChange={onChangeHandler}
                checked={props.isDone}/>
 

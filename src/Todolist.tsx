@@ -21,7 +21,7 @@ type PropsType = {
     removeTask: (todolistID: string, taskId: string) => void
     changeFilter: (todolistID: string, value: FilterValuesType) => void
     addTask: (todolistID: string, title: string) => void
-    changeTaskStatus: (todolistID: string, taskId: string, isDone: boolean) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, todolistID: string) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
     editTask: (todolistID: string, taskID: string, newTitle: string) => void
@@ -51,8 +51,8 @@ export function Todolist(props: PropsType) {
     const editTodoHandler = (newTitle: string) => {
         props.editTodo(props.todolistID, newTitle)
     }
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeTaskStatus(props.todolistID, props.tasks, e.currentTarget.checked);
+    const onChangeHandler = (tID: string, newIsDone: boolean) => {
+        props.changeTaskStatus(tID, newIsDone, props.todolistID);
     }
     return <div>
         <h3>
@@ -82,7 +82,7 @@ export function Todolist(props: PropsType) {
                         {/*       checked={t.isDone}/>*/}
                         {/*<Checkbox onChange={onChangeHandler}*/}
                         {/*          checked={t.isDone} />*/}
-                        <SuperCheckbox callBack={onChangeHandler} isDone={t.isDone}/>
+                        <SuperCheckbox callBack={(newIsDone) => onChangeHandler(t.id, newIsDone)} isDone={t.isDone}/>
                         <EditableSpan oldTitle={t.title} callBack={(newTitle) => editTaskHandler(t.id, newTitle)}/>
                         <IconButton aria-label="delete" onClick={onClickHandler}>
                             <DeleteIcon/>
